@@ -31,19 +31,28 @@ class LoginController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        // Jika login berhasil, ambil token dari respons
+        // Jika login berhasil, ambil token dan user dari respons
         var data = json.decode(response.body);
 
-        // Mengambil plainTextToken dan user data dari respons
-        String plainTextToken = data['access_token']['plainTextToken'];
+        // Access token is a string, not an object
+        String? accessToken = data['access_token'];
         var userData = data['user'];
-        print(userData['role']);
-        // Simpan token dan data user ke SharedPreferences
-        await _saveToken(plainTextToken);
-        await _saveUserData(userData);
 
-        // Pindah ke halaman utama setelah login
-        Get.offAllNamed(NavigationRoute.mainMenu, arguments: {'role': userData['role']});
+        if (accessToken != null && userData != null) {
+          print(userData['role']);
+
+          // Simpan token dan data user ke SharedPreferences
+          await _saveToken(accessToken);
+          await _saveUserData(userData);
+
+          // Pindah ke halaman utama setelah login
+          Get.offAllNamed(
+            NavigationRoute.mainMenu, 
+            arguments: {'role': userData['role']}
+          );
+        } else {
+          Get.snackbar('Error', 'Invalid response data.');
+        }
       } else {
         // Jika login gagal, tampilkan pesan error
         Get.snackbar('Login Failed', 'Invalid credentials or server error');
@@ -68,6 +77,8 @@ class LoginController extends GetxController {
     await prefs.setString('email', userData['email']);
     await prefs.setString('no_telepon', userData['no_telepon']);
     await prefs.setString('role', userData['role']);
+    // Saving additional data like address if needed
+    await prefs.setString('alamat', userData['alamat']);
     print("User data disimpan: $userData");
   }
 
@@ -86,6 +97,7 @@ class LoginController extends GetxController {
       'email': prefs.getString('email'),
       'no_telepon': prefs.getString('no_telepon'),
       'role': prefs.getString('role'),
+      'alamat': prefs.getString('alamat'), // Retrieve address if needed
     };
   }
 }
