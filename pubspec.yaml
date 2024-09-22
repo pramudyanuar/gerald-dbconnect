@@ -1,0 +1,30 @@
+name: gerald
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.2.1
+  flutter_screenutil: ^5.9.3
+  fl_chart: ^0.68.0
+  get: 4.6.6
+  shared_preferences: ^2.3.2
+  path_provider: ^2.1.4
+  http: ^1.2.2
+  dio: ^5.7.0
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: 4.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  assets: 
+    - assets/images/
+    - assets/icon/
+  uses-material-design: true
