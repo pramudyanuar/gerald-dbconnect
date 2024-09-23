@@ -4,7 +4,6 @@ import 'package:gerald/core/constants/text.dart';
 import 'package:gerald/core/global_components/base_appbar.dart';
 import 'package:gerald/core/global_components/base_widget_container.dart';
 import 'package:gerald/core/global_components/global_text.dart';
-import 'package:gerald/core/utils/routes_screen.dart';
 import 'package:gerald/pages/supervisor_view/explore/widgets/pump_house_card.dart';
 import 'package:gerald/pages/supervisor_view/explore/controller/pump_house_controller.dart';
 import 'package:get/get.dart';
@@ -61,7 +60,7 @@ class SupervisorExploreView extends StatelessWidget {
         return ListView.builder(
           padding: EdgeInsets.all(16.0.w),
           itemCount: pumpHouseController.searchResults.length,
-          itemBuilder: (context, index) {
+          itemBuilder: (context, index) { 
             final data = pumpHouseController.searchResults[index];
             return Padding(
               padding: EdgeInsets.only(bottom: 16.0.h),

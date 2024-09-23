@@ -19,6 +19,7 @@ class PumpStationDetailScreen extends StatelessWidget {
     final String pumpHouseId = Get.arguments['pumpHouseId'].toString();
     final PumpHouseDetailController pumpHouseDetailController = Get.put(PumpHouseDetailController());
 
+    // Fetch pump house detail data
     pumpHouseDetailController.fetchPumpHouseDetail(pumpHouseId);
 
     return BaseWidgetContainer(
@@ -43,6 +44,21 @@ class PumpStationDetailScreen extends StatelessWidget {
         } else {
           final pumpHouse = pumpHouseDetailController.pumpHouseDetail;
 
+          // Check if pumpHouse is not null and has the required data
+          if (pumpHouse.isEmpty) {
+            return Center(child: Text('No data available'));
+          }
+
+          // Use default values or safe access for nested data
+          final String namaRumah = pumpHouse['nama_rumah'] ?? SupervisorText.unknownPumpHouse;
+          final String alamat = pumpHouse['alamat'] ?? SupervisorText.unknownAddress;
+
+          // Safe access to the first pump details
+          final pumpList = pumpHouse['pompa'] as List<dynamic>? ?? [];
+          final firstPump = pumpList.isNotEmpty ? pumpList.first : {};
+          final String pumpStatus = 
+              '${firstPump['jumlah_pompa_hidup']?.toString() ?? '0'} / ${firstPump['jumlah_total_pompa']?.toString() ?? '0'}';
+
           return SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.all(16.0.w),
@@ -60,13 +76,13 @@ class PumpStationDetailScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16.0.h),
                   GlobalText(
-                    text: pumpHouse['nama_rumah'] ?? SupervisorText.unknownPumpHouse,
+                    text: namaRumah,
                     type: TextType.bold,
                     fontSize: 20.0.sp,
                   ),
                   SizedBox(height: 4.0.h),
                   GlobalText(
-                    text: pumpHouse['alamat'] ?? SupervisorText.unknownAddress,
+                    text: alamat,
                     type: TextType.normal,
                     fontSize: 14.0.sp,
                     color: Colors.grey,
@@ -76,7 +92,7 @@ class PumpStationDetailScreen extends StatelessWidget {
                     weather: 'N/A', // Update these fields with actual data if available
                     waterLevel: pumpHouse['ketinggian_sensor']?.toString() ?? SupervisorText.unknownWaterLevel,
                     rainProbability: SupervisorText.unknownRainProbability,
-                    pumpStatus: (pumpHouse['pompa']?.first['jumlah_pompa_hidup']?.toString() ?? '0') + ' / ' + (pumpHouse['pompa']?.first['jumlah_total_pompa']?.toString() ?? '0'),
+                    pumpStatus: pumpStatus,
                     waterLevelLimit: pumpHouse['threshold']?.toString() ?? SupervisorText.unknownWaterLevelLimit,
                     sensorHeight: pumpHouse['ketinggian_sensor']?.toString() ?? SupervisorText.unknownWaterLevel,
                     floodPotential: SupervisorText.unknownFloodPotential,

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:gerald/core/services/api_endpoints.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +16,7 @@ class PumpHouseDetailController extends GetxController {
   Future<void> fetchPumpHouseDetail(String pumpHouseId) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('bearer_token');
-    final url = 'http://10.0.2.2:8000/api/pengawas/rumah-pompa/$pumpHouseId';
+    final url = ApiEndpoints.getAllPump + '/$pumpHouseId';
 
     try {
       isLoading.value = true;

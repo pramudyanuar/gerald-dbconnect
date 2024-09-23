@@ -12,11 +12,14 @@ import 'package:gerald/pages/officer_view/explore/controller/edit_pump_controlle
 import 'package:get/get.dart';
 
 class EditPumpScreen extends StatelessWidget {
-  final EditpumpdetailController controller = Get.put(EditpumpdetailController());
   EditPumpScreen({super.key});
+  final EditPumpController controller = Get.put(EditPumpController());
 
   @override
   Widget build(BuildContext context) {
+    // Initialize pump data when the screen is loaded
+    controller.initializePumpData();
+
     return BaseWidgetContainer(
       appBar: BaseAppBar.baseAppBar(
         context,
@@ -45,13 +48,12 @@ class EditPumpScreen extends StatelessWidget {
                 leftButtonTextColor: Colors.blue,
                 rightButtonTextColor: Colors.white,
                 onLeftButtonPressed: () {
-                  // Handle edit action
                   Get.back(); // Close the dialog
                 },
                 onRightButtonPressed: () {
-                  // Handle save action
                   Get.back(); // Close the dialog
-                  // Additional save logic here
+                  // Save the data using controller
+                  controller.savePumpData(1); // Pass the pump house ID here
                 },
               ));
             },
@@ -74,18 +76,20 @@ class EditPumpScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16.h),
-              GlobalText(
-                text: controller.pumpData['nama'],
+              // Accessing 'pumpName' value safely
+              Obx(() => GlobalText(
+                text: controller.pumpName.value,
                 type: TextType.bold,
                 fontSize: 20.sp,
-              ),
+              )),
               SizedBox(height: 8.h),
-              GlobalText(
-                text: controller.pumpData['alamat'],
+              // Accessing 'pumpAddress' value safely
+              Obx(() => GlobalText(
+                text: controller.pumpAddress.value,
                 type: TextType.normal,
                 fontSize: 14.sp,
                 color: Colors.grey,
-              ),
+              )),
               SizedBox(height: 16.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,8 +110,9 @@ class EditPumpScreen extends StatelessWidget {
                             icon: const Icon(Icons.remove),
                             onPressed: controller.decrementWaterLevel,
                           ),
+                          // Accessing 'waterLevel' value safely
                           Obx(() => GlobalText(
-                            text: '${controller.pumpData['waterLevel'].value} cm',
+                            text: '${controller.waterLevel.value} cm', // No need for null safety as it is always an RxInt
                             type: TextType.bold,
                             fontSize: 20.sp,
                           )),
@@ -141,8 +146,9 @@ class EditPumpScreen extends StatelessWidget {
                             icon: const Icon(Icons.remove),
                             onPressed: controller.decrementSensorHeight,
                           ),
+                          // Accessing 'sensorHeight' value safely
                           Obx(() => GlobalText(
-                            text: '${controller.pumpData['sensorHeight'].value} cm',
+                            text: '${controller.sensorHeight.value} cm',
                             type: TextType.bold,
                             fontSize: 20.sp,
                           )),
@@ -176,8 +182,9 @@ class EditPumpScreen extends StatelessWidget {
                             icon: const Icon(Icons.remove),
                             onPressed: controller.decrementPump,
                           ),
+                          // Accessing 'pumpActive' and 'maxPump' values safely
                           Obx(() => GlobalText(
-                            text: '${controller.pumpData['pumpActive'].value} / ${controller.pumpData['maxPump']}',
+                            text: '${controller.pumpActive.value} / ${controller.maxPump}',
                             type: TextType.bold,
                             fontSize: 20.sp,
                           )),

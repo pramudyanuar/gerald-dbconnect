@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:gerald/core/services/api_endpoints.dart';
 import 'package:gerald/core/utils/routes_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -17,11 +18,11 @@ class PumpHouseController extends GetxController {
   Future<void> fetchPumpHouseData() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('bearer_token');
-    final url = 'http://10.0.2.2:8000/api/pengawas/rumah-pompa';
+    
 
     try {
       final response = await http.get(
-        Uri.parse(url),
+        Uri.parse(ApiEndpoints.getAllPump),
         headers: {'Authorization': 'Bearer $token'},
       );
 
@@ -61,7 +62,7 @@ class PumpHouseController extends GetxController {
 
   void search(String query) {
     if (query.isEmpty) {
-      fetchPumpHouseData(); // Reload data
+      fetchPumpHouseData();
     } else {
       searchResults.value = searchResults.where((item) {
         return item['title']!.toLowerCase().contains(query.toLowerCase());

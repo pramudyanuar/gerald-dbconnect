@@ -79,6 +79,17 @@ class LoginController extends GetxController {
     await prefs.setString('role', userData['role']);
     // Saving additional data like address if needed
     await prefs.setString('alamat', userData['alamat']);
+    
+    // Ensure that `rumah_pompa` is a list and not empty before accessing
+    if (userData['rumah_pompa'] is List && userData['rumah_pompa'].isNotEmpty) {
+      // Save the first element of rumah_pompa as string
+      String rumahPompa = userData['rumah_pompa'][0].toString();
+      await prefs.setString('rumah_pompa', rumahPompa);
+      print("Rumah pompa disimpan: $rumahPompa");
+    } else {
+      print("Rumah pompa tidak tersedia atau kosong.");
+    }
+    
     print("User data disimpan: $userData");
   }
 
@@ -97,7 +108,8 @@ class LoginController extends GetxController {
       'email': prefs.getString('email'),
       'no_telepon': prefs.getString('no_telepon'),
       'role': prefs.getString('role'),
-      'alamat': prefs.getString('alamat'), // Retrieve address if needed
+      'alamat': prefs.getString('alamat'), 
+      'rumah_pompa': prefs.getString('rumah_pompa'), // Retrieve stored rumah_pompa
     };
   }
 }

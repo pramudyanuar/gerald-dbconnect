@@ -5,6 +5,8 @@ class PumpHouseController extends GetxController {
 
   var searchResults = <Map<String, String>>[].obs;
 
+  get isLoading => null;
+
   @override
   void onInit() {
     super.onInit();

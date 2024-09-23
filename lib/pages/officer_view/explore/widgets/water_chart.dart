@@ -63,7 +63,7 @@ class WaterLevelChart extends StatelessWidget {
                         reservedSize: 32,
                         getTitlesWidget: (value, meta) {
                           return Text('${value.toInt()}cm',
-                              style: TextStyle(fontSize: 10.sp));
+                              style: TextStyle(fontSize: 8.sp));
                         },
                       ),
                     ),

@@ -26,6 +26,7 @@ class ProfileController extends GetxController {
       userData['email'] = prefs.getString('email') ?? '';
       userData['no_telepon'] = prefs.getString('no_telepon') ?? '';
       userData['role'] = prefs.getString('role') ?? '';
+      userData['rumah_pompa'] = prefs.getString('rumah_pompa') ?? '';
 
       print("User data berhasil dimuat: $userData");
     } catch (e) {

@@ -25,7 +25,7 @@ class WeeklyForecast extends StatelessWidget {
         itemCount: dailyData.length,
         itemBuilder: (context, index) {
           final item = dailyData[index];
-          bool isToday = item["day"] == "Kam";
+          bool isToday = item["day"] == "Sel";
 
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.w),

@@ -13,6 +13,7 @@ dependencies:
   get: 4.6.6
   shared_preferences: ^2.3.2
   path_provider: ^2.1.4
+  flutter_launcher_icons: ^0.14.0
   http: ^1.2.2
   dio: ^5.7.0
   flutter: 
@@ -28,3 +29,8 @@ flutter:
     - assets/images/
     - assets/icon/
   uses-material-design: true
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/image/logo.png"
