@@ -11,8 +11,20 @@ class LaporanPotensiBanjirScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Contoh data statis, nanti akan digantikan dengan data dinamis dari API
-    final List<double> floodData = [24, 16, 4, 2, 2, 4];
-    final List<String> months = ["Des", "Jan", "Feb", "Mar", "Apr", "Mei"];
+final List<double> floodData = [24, 16, 4, 2, 2, 4, 8, 12, 10]; // Data untuk Desember hingga September
+final List<String> months = [
+  "Des", 
+  "Jan", 
+  "Feb", 
+  "Mar", 
+  "Apr", 
+  "Mei", 
+  "Jun", 
+  "Jul", 
+  "Agu", 
+  "Sep"
+];
+
 
     return BaseWidgetContainer(
       body: Padding(

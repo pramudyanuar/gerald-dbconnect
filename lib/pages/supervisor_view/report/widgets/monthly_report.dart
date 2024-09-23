@@ -13,8 +13,8 @@ class MonthlyReport extends StatelessWidget {
 
   final List<Map<String, String>> reports = [
     {'month': 'september', 'year': '2024'},
-    {'month': 'Mei', 'year': '2024'},
-    {'month': 'April', 'year': '2024'},
+    {'month': 'agustus', 'year': '2024'},
+    {'month': 'juli', 'year': '2024'},
     // Tambahkan lebih banyak laporan di sini jika diperlukan
   ];
 
