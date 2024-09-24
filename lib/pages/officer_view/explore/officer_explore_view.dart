@@ -6,6 +6,7 @@ import 'package:gerald/core/constants/images.dart';
 import 'package:gerald/core/constants/text.dart';
 import 'package:gerald/core/global_components/base_widget_container.dart';
 import 'package:gerald/core/global_components/global_text.dart';
+import 'package:gerald/core/services/notification_services.dart';
 import 'package:gerald/core/utils/routes_screen.dart';
 import 'package:gerald/pages/officer_view/explore/controller/explore_controller.dart';
 import 'package:gerald/pages/officer_view/explore/widgets/base_button.dart';
@@ -129,6 +130,21 @@ class OfficerExploreView extends StatelessWidget {
                       onPressed: () => {
                         Get.offAllNamed(NavigationRoute.pumphousedetail),
                       },
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        NotificationService.showInstantNotification(
+                          "Peringatan Banjir",
+                          "Ketinggian air melebihi treshold",
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent, // Warna latar belakang transparan
+                        shadowColor: Colors.transparent, disabledForegroundColor: Colors.transparent.withOpacity(0.38), disabledBackgroundColor: Colors.transparent.withOpacity(0.12), // Warna tombol ketika dinonaktifkan transparan
+                        elevation: 0, // Menghilangkan bayangan
+                        padding: EdgeInsets.zero, // Menghilangkan padding agar tidak ada area tombol yang terlihat
+                      ),
+                      child: const SizedBox.shrink(), // Tidak ada child yang ditampilkan
                     ),
                     SizedBox(height: 10.h),
                     SingleChildScrollView(
